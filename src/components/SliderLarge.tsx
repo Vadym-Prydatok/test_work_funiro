@@ -14,7 +14,7 @@ export default class SimpleSliderL extends Component {
       slidesToShow: 0.9,
       speed: 500,
       autoplay: true,
-      autoplaySpeed: 3000,
+      autoplaySpeed: 4000,
     };
 
     return (

@@ -61,11 +61,24 @@
   }
 
   &__item-price {
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 80px;
     position: absolute;
-    bottom: -180px;
+    bottom: 10px;
     left: 10px;
+    background-color: #ffffffa9;
+    backdrop-filter: blur(10px);
+    padding: 12px;
+  }
+
+  &__item-price p {
+    font-family: 'GilroyM', sans-serif;
+    font-size: 14px;
+  }
+
+  &__item-price h1 {
+    font-family: 'GilroySM', sans-serif;
+    font-size: 16px;
   }
 
   &__item img {
@@ -143,6 +156,10 @@
     &__list {
       left: 5vw;
     }
+
+    &__item-price {
+      left: 15%;
+    }
   }
 
   .isActiveSlide {
@@ -167,6 +184,10 @@
 
     &__list {
       left: 3vw;
+    }
+
+    &__item-price {
+      left: 24%;
     }
   }
 
@@ -205,6 +226,24 @@
       bottom: 70px;
       right: 80px;
     }
+
+    
+    &__item-price {
+      width: 217px;
+      height: 130px;
+      padding: 32px 12px;
+      left: 40px;
+    }
+  
+    &__item-price p {
+      font-size: 16px;
+      line-height: 150%;
+    }
+  
+    &__item-price h1 {
+      line-height: 120%;
+      font-size: 28px;
+    }
   }
 
   .isActiveSlide {
@@ -240,6 +279,12 @@
       height: 486px;
       padding: 0 12px;
       object-position: center;
+    }
+
+    &__item-price {
+      padding: 32px 12px;
+      left: 40px;
+      bottom: 56px;
     }
 
     &-control {

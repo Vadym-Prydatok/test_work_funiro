@@ -3,6 +3,8 @@ import './App.scss';
 import classNames from 'classnames';
 import SimpleSlider from './components/Slider';
 import SimpleSliderL from './components/SliderLarge';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const products = [
   {
@@ -80,13 +82,17 @@ function App() {
   const [roomSlide, setRoomSlide] = useState(0);
 
   useEffect(() => {
+    AOS.init();
+  }, [])
+
+  useEffect(() => {
     if (roomSlide === 4) {
       setRoomSlide(0);
     }
 
     const interval = setInterval(() => {
       setRoomSlide(roomSlide + 1);
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [roomSlide]);
@@ -114,7 +120,7 @@ function App() {
       <header className="header">
         <div className="container">
           <div className="header__inner">
-            <div className="header__nav">
+            <div className="header__nav" data-aos="fade-down" data-aos-duration="1000">
               <nav className="nav">
                 <ul className="nav__list-menu">
                   <li className="nav__item-menu">
@@ -222,7 +228,7 @@ function App() {
       </header>
 
       <main>
-        <section className="advantages">
+        <section className="advantages" data-aos="fade-left" data-aos-duration="1000">
           <div className="container">
             <div className="advantages__inner">
               <ul className="advantages__list">
@@ -285,6 +291,8 @@ function App() {
                       onMouseEnter={() => handleMouseEnter(+id)}
                       onMouseLeave={handleMouseLeave}
                       className="products__item"
+                      data-aos="flip-left"
+                      data-aos-duration="1000"
                     >
                       {+id === hasOrder && (
                         <div className="products__hover">
@@ -335,7 +343,7 @@ function App() {
         <section className="inspiration">
           <div className="container">
             <div className="inspiration__inner">
-              <div className="inspiration__info">
+              <div className="inspiration__info" data-aos="fade-right" data-aos-duration="1000">
                 <h1 className="inspiration__title">
                   50+ Beautiful rooms inspiration
                 </h1>
@@ -360,12 +368,12 @@ function App() {
                   >
                     <img src={`img/rooms/img1.png`} alt="" />
 
-                    {/* {roomSlide === 0 && (
-                      <div className="slider-rooms__item-price">
+                    {roomSlide === 0 && (
+                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
                       <p>01 - Bed Room</p>
                       <h1>Inner Peace</h1>
                     </div>
-                    )} */}
+                    )}
                   </li>
 
                   <li
@@ -379,12 +387,12 @@ function App() {
                     }}
                   >
                     <img src={`img/rooms/img2.png`} alt="" />
-                    {/* {roomSlide === 1 && (
-                      <div className="slider-rooms__item-price">
+                    {roomSlide === 1 && (
+                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
                       <p>Lorem, ipsum.</p>
                       <h1>Lorem, ipsum.</h1>
                     </div>
-                    )} */}
+                    )}
                   </li>
 
                   <li
@@ -398,12 +406,12 @@ function App() {
                     }}
                   >
                     <img src={`img/rooms/img3.png`} alt="" />
-                    {/* {roomSlide === 2 && (
-                      <div className="slider-rooms__item-price">
+                    {roomSlide === 2 && (
+                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
                       <p>02 - Lorem, ipsum.</p>
                       <h1>Lorem, ipsum.</h1>
                     </div>
-                    )} */}
+                    )}
                   </li>
 
                   <li
@@ -415,12 +423,12 @@ function App() {
                     }}
                   >
                     <img src={`img/rooms/img4.png`} alt="" />
-                    {/* {roomSlide === 3 && (
-                      <div className="slider-rooms__item-price">
+                    {roomSlide === 3 && (
+                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
                       <p>03 - Lorem</p>
                       <h1>Lorem, ipsum.</h1>
                     </div>
-                    )} */}
+                    )}
                   </li>
                 </ul>
               </div>
@@ -448,10 +456,6 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
-
-        <section>
-          <h1 className='x'>hello Vadim</h1>
         </section>
       </main>
     </div>
