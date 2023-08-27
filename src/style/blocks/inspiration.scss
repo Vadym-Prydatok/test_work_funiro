@@ -1,0 +1,263 @@
+@use "../_utils/_mixins.scss" as *;
+@import url(../_utils/_vars.scss);
+
+.inspiration {
+  background-color: #fcf8f3;
+
+  &__inner {
+    padding: 44px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 24px;
+    gap: 8px;
+  }
+
+  &__title {
+    font-family: "GilroyB", sans-serif;
+    font-size: 40px;
+    line-height: 120%;
+  }
+
+  &__info p {
+    font-family: "GilroyM", sans-serif;
+    font-size: 16px;
+    line-height: 150%;
+    color: #616161;
+  }
+
+  &__info button {
+    margin-top: 16px;
+    width: 100%;
+    height: 48px;
+  }
+}
+
+.slider-rooms {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+
+  &__list {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  &__item {
+    width: 300px;
+    height: 300px;
+    position: relative;
+  }
+
+  &__item-price {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    bottom: -180px;
+    left: 10px;
+  }
+
+  &__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &-control {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  &-control-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: #e89f71;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    font-size: 26px;
+    -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+
+     &:hover {
+      color: #fff;
+      background-color: #e89f71;
+     }
+  }
+
+  &__dots-list {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__dots-item {
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dots-item button {
+    width: 11px;
+    height: 11px;
+    background-color: #d8d8d8;
+    border-radius: 50%;
+  }
+}
+
+.isActiveDot {
+  border: 2px solid #e89f71;
+  border-radius: 50%;
+}
+
+.isActiveSlide {
+  height: 380px;
+}
+
+@media (min-width: 320px) {
+  .slider-rooms {
+    &__item {
+      width: 90vw;
+      height: 300px;
+      padding: 0 3%;
+    }
+
+    &__list {
+      left: 5vw;
+    }
+  }
+
+  .isActiveSlide {
+    height: 380px;
+  }
+}
+
+@media (min-width: 420px) {
+  .inspiration {
+    &__info button {
+      width: 176px;
+    }
+  }
+  .slider-rooms {
+    height: 550px;
+
+    &__item {
+      width: 90vw;
+      height: 500px;
+      padding: 0 5%;
+    }
+
+    &__list {
+      left: 3vw;
+    }
+  }
+
+  .isActiveSlide {
+    height: 500px;
+  }
+}
+
+@include onTablet {
+  .inspiration {
+    &__inner {
+      position: relative;
+    }
+
+    &__info {
+      text-align: left;
+      align-items: start;
+    }
+  }
+
+  .slider-rooms {
+    height: 670px;
+
+    &__item {
+      width: 360px;
+      height: 480px;
+      padding: 0 24px;
+    }
+
+    &__list {
+      left: 0;
+    }
+
+    &-control {
+      position: absolute;
+      bottom: 70px;
+      right: 80px;
+    }
+  }
+
+  .isActiveSlide {
+    height: 580px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .inspiration {
+    &__inner {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__info {
+      width: 450px;
+      padding: 0 96px 0 0;
+    }
+  }
+
+  .slider-rooms {
+    height: 550px;
+
+    &__item {
+      width: 400px;
+      height: 486px;
+      padding: 0 12px;
+      object-position: center;
+    }
+
+    &__item {
+      width: 400px;
+      height: 486px;
+      padding: 0 12px;
+      object-position: center;
+    }
+
+    &-control {
+      position: absolute;
+      bottom: 60px;
+      right: 0px;
+    }
+
+    &-control-btn {
+      margin: 0 0 220px 280px;
+    }
+
+    &__dots-list {
+      margin-right: 260px;
+    }
+  }
+
+  .isActiveSlide {
+    height: 582px;
+  }
+}

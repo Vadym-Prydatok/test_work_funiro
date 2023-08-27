@@ -1,0 +1,65 @@
+@use "../_utils/_mixins.scss" as *;
+
+.slider-large {
+  display: none;
+}
+
+@include onDekstop {
+  .slider-large {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 150px;
+  }
+
+  .slider-large div div {
+    position: relative;
+  }
+
+  .slider-large .slider__boxL {
+    display: block;
+    position: absolute;
+    width: 294px;
+    height: 148px;
+    right: 60px;
+    bottom: 40px;
+    background-color: #ffffffa9;
+    backdrop-filter: blur(10px);
+    padding: 24px;
+  }
+
+  .slider__boxL h1 {
+    font-family: 'GilroySM', sans-serif;
+    font-size: 28px;
+    line-height: 120%;
+    padding-bottom: 4px;
+  }
+
+  .slider__boxL p {
+    font-family: 'GilroyM', sans-serif;
+    font-size: 16px;
+    line-height: 150%;
+    color: #616161;
+    padding-bottom: 8px;
+  }
+
+  .slider__boxL h2 {
+    font-family: 'GilroySB', sans-serif;
+    font-size: 20px;
+    line-height: 150%;
+    color: #3A3A3A;
+    display: inline;
+  }
+
+  .slider__boxL img {
+    display: inline;
+  }
+
+  .slider__boxL_container {
+    display: flex;
+    flex-direction: row;
+    gap: 90px;
+  }
+}

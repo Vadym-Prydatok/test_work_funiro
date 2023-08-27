@@ -1,0 +1,9 @@
+%transition {
+  transition: all ease-in-out 0.3s;
+}
+
+%btnHover {
+  color: black;
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.74); 
+  box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.74);
+}

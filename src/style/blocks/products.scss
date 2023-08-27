@@ -1,0 +1,172 @@
+@use "../_utils/_mixins.scss" as *;
+
+.products {
+  text-align: center;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__head {
+    font-family: "GilroyB", sans-serif;
+    font-size: 40px;
+    line-height: 120%;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 32px 0;
+  }
+
+  &__item {
+    background-color: #f4f5f7;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 30px;
+    position: relative;
+  }
+
+  &__item img {
+    margin-bottom: 8px;
+  }
+
+  &__title {
+    font-family: "GilroySM", sans-serif;
+    font-size: 24px;
+    line-height: 120%;
+  }
+
+  &__describe {
+    font-family: "GilroyM", sans-serif;
+    font-size: 16px;
+    line-height: 150%;
+    color: #898989;
+  }
+
+  &__price {
+    display: inline;
+    font-family: "GilroySM", sans-serif;
+    font-size: 20px;
+    line-height: 150%;
+    padding-right: 4px;
+  }
+
+  &__priceWithDiscount {
+    display: inline;
+    color: #b0b0b0;
+    text-decoration: line-through;
+  }
+
+  &__circle {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    right: 24px;
+    top: 24px;
+    border-radius: 50%;
+    padding: 12px 0;
+    color: #fff;
+  }
+
+  &__hover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    position: absolute;
+    color: #fff;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background: url(../../../img/Overlay.png);
+  }
+
+  &__hover div {
+    display: flex;
+
+    gap: 48px;
+  }
+
+  &__add {
+    font-family: "GilroySM", sans-serif;
+    line-height: 150%;
+    font-size: 16px;
+    color: #e89f71;
+    background-color: #fff;
+    width: 202px;
+    height: 48px;
+
+    &:hover {
+      color: #fff;
+      background-color: #e89f71;
+    }
+  }
+
+  &__share {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__like {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__like p {
+    padding-bottom: 5px;
+
+    &:hover {
+      color: #e89f71;
+    }
+  }
+
+  &__share p {
+    padding-bottom: 5px;
+
+    &:hover {
+      color: #e89f71;
+    }
+  }
+
+  &__show-more {
+    font-family: "GilroySM", sans-serif;
+    line-height: 150%;
+    font-size: 16px;
+    color: #e89f71;
+    height: 48px;
+    width: 245px;
+    border: 1px solid #e89f71;
+
+    &:hover {
+      color: #fff;
+      background-color: #e89f71;
+    }
+  }
+}
+
+@include onTablet {
+  .products {
+    &__list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    &__item-box {
+      padding-left: 16px;
+      text-align: left;
+    }
+  }
+}

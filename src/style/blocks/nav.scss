@@ -1,0 +1,175 @@
+@use "../_utils/_mixins.scss" as *;
+
+.nav {
+  font-family: "GilroyM", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+
+  &__list {
+    transform: translateY(-150%);
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 50px 10px;
+    z-index: 2;
+  }
+
+  &__item:first-child {
+    display: none;
+  }
+
+  &__item:last-child {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__item a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px; 
+  }
+
+  &__list.active {
+    transform: translateY(0);
+  }
+
+  &__list-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__item {
+    &:hover {
+      .nav__img {
+        transform: rotateX(180deg);
+      }
+    }
+  }
+
+  &__item:nth-child(4) {
+    position: relative;
+    &:hover::after {
+      @include active-animation;
+    }
+  }
+}
+
+@include onTablet {
+  .nav {
+    font-size: 12px;
+    line-height: 120%;
+
+    &__list-menu {
+      display: none;
+    }
+
+    &__list {
+      transform: translate(0);
+      position: static;
+      background-color: transparent;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      padding: 0; 
+    }
+
+    &__item:first-child {
+      display: block;
+    }
+
+    &__item:first-child img {
+      width: 36px;
+      height: 36px;
+    }
+
+    &__item {
+      margin-left: 4px;
+      padding: 8px;
+      gap: 8px;
+    }
+
+    &__img {
+      width: 12px;
+      height: 12px;
+    }
+
+    &__item:last-child img {
+      height: 16px;
+      width: 16px;
+    }
+
+    &__item:last-child {
+      max-width: 470px;
+      margin-left: 10px;
+      padding: 8px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      height: 25px;
+      background-color: #fff;
+    }
+
+    &__item:last-child img {
+      height: 12px;
+      width: 12px;
+    }
+  }
+}
+
+@include onDekstop {
+  .nav {
+    font-family: "GilroyM", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+  
+    &__list {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    &__item:first-child img {
+      width: 74px;
+      height: 30px;
+    }
+  
+    &__item a {
+      display: flex;
+      gap: 8px;
+    }
+  
+    &__item input {
+      background-color: #fff;
+    }
+  
+    &__item:last-child {
+      width: 470px;
+      margin-left: 10px;
+      padding: 15px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      height: 45px;
+      background-color: #fff;
+    }
+  
+    &__item:last-child img {
+      height: 20px;
+      width: 20px;
+    }
+
+  }
+}

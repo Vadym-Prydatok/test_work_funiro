@@ -1,0 +1,20 @@
+@use "./style/_utils/_extends.scss";
+@use "./style/_utils/_mixins.scss" as *;
+@use "./style/_utils/_vars.scss" as *;
+@import url(./style/_utils/_reset.scss);
+@import url(./style/_utils/_fonts.scss);
+@import url(./style/_utils/_page.scss);
+@import url(./style/modules/slider.scss);
+@import url(./style/blocks/header.scss);
+@import url(./style/blocks/nav.scss);
+@import url(./style/blocks/nav_bar.scss);
+@import url(./style/modules/burger.scss);
+@import url(./style/modules/sliderL.scss);
+@import url(./style/blocks/advantsges.scss);
+@import url(./style/blocks/products.scss);
+@import url(./style/blocks/inspiration.scss);
+@import url(./style/modules/button.scss);
+
+.x {
+  color: $orange;
+}
