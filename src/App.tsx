@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import './App.scss';
-import classNames from 'classnames';
-import SimpleSlider from './components/Slider';
-import SimpleSliderL from './components/SliderLarge';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { useEffect, useState } from "react";
+import "./App.scss";
+import classNames from "classnames";
+import SimpleSlider from "./components/Slider";
+import SimpleSliderL from "./components/SliderLarge";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const products = [
   {
@@ -80,10 +80,12 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasOrder, sethasOrder] = useState(0);
   const [roomSlide, setRoomSlide] = useState(0);
+  const [tipsSlide, setTipsSlide] = useState(0);
+  console.log(tipsSlide);
 
   useEffect(() => {
     AOS.init();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (roomSlide === 4) {
@@ -97,6 +99,18 @@ function App() {
     return () => clearInterval(interval);
   }, [roomSlide]);
 
+  useEffect(() => {
+    if (tipsSlide === 4) {
+      setTipsSlide(0);
+    }
+
+    const interval = setInterval(() => {
+      setTipsSlide(tipsSlide + 1);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [tipsSlide]);
+
   const toggleSlider = (sign: string) => {
     if (roomSlide + 1 > 3 && sign === "plus") {
       return setRoomSlide(0);
@@ -104,6 +118,24 @@ function App() {
 
     if (sign === "plus") {
       setRoomSlide(roomSlide + 1);
+    }
+  };
+
+  const toggleSliderTips = (sign: string) => {
+    if (tipsSlide + 1 > 3 && sign === "plus") {
+      return setTipsSlide(0);
+    }
+
+    if (sign === "plus") {
+      setTipsSlide(tipsSlide + 1);
+    }
+
+    if (tipsSlide - 1 < 0 && sign === "minus") {
+      return setTipsSlide(3);
+    }
+
+    if (sign === "minus") {
+      setTipsSlide(tipsSlide - 1);
     }
   };
 
@@ -120,8 +152,16 @@ function App() {
       <header className="header">
         <div className="container">
           <div className="header__inner">
-            <div className="header__nav" data-aos="fade-down" data-aos-duration="1000">
-              <nav className="nav">
+            <div
+              className="header__nav"
+              data-aos="fade-down"
+              data-aos-duration="1000"
+            >
+              <nav
+                className="nav"
+                data-aos="fade-down"
+                data-aos-duration="1000"
+              >
                 <ul className="nav__list-menu">
                   <li className="nav__item-menu">
                     <a href="/">
@@ -228,7 +268,11 @@ function App() {
       </header>
 
       <main>
-        <section className="advantages" data-aos="fade-left" data-aos-duration="1000">
+        <section
+          className="advantages"
+          data-aos="fade-left"
+          data-aos-duration="1000"
+        >
           <div className="container">
             <div className="advantages__inner">
               <ul className="advantages__list">
@@ -343,7 +387,11 @@ function App() {
         <section className="inspiration">
           <div className="container">
             <div className="inspiration__inner">
-              <div className="inspiration__info" data-aos="fade-right" data-aos-duration="1000">
+              <div
+                className="inspiration__info"
+                data-aos="fade-right"
+                data-aos-duration="1000"
+              >
                 <h1 className="inspiration__title">
                   50+ Beautiful rooms inspiration
                 </h1>
@@ -369,10 +417,14 @@ function App() {
                     <img src={`img/rooms/img1.png`} alt="" />
 
                     {roomSlide === 0 && (
-                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
-                      <p>01 - Bed Room</p>
-                      <h1>Inner Peace</h1>
-                    </div>
+                      <div
+                        className="slider-rooms__item-price"
+                        data-aos="fade-up"
+                        data-aos-duration="2000"
+                      >
+                        <p>01 - Bed Room</p>
+                        <h1>Inner Peace</h1>
+                      </div>
                     )}
                   </li>
 
@@ -388,10 +440,14 @@ function App() {
                   >
                     <img src={`img/rooms/img2.png`} alt="" />
                     {roomSlide === 1 && (
-                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
-                      <p>Lorem, ipsum.</p>
-                      <h1>Lorem, ipsum.</h1>
-                    </div>
+                      <div
+                        className="slider-rooms__item-price"
+                        data-aos="fade-up"
+                        data-aos-duration="2000"
+                      >
+                        <p>Lorem, ipsum.</p>
+                        <h1>Lorem, ipsum.</h1>
+                      </div>
                     )}
                   </li>
 
@@ -407,10 +463,14 @@ function App() {
                   >
                     <img src={`img/rooms/img3.png`} alt="" />
                     {roomSlide === 2 && (
-                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
-                      <p>02 - Lorem, ipsum.</p>
-                      <h1>Lorem, ipsum.</h1>
-                    </div>
+                      <div
+                        className="slider-rooms__item-price"
+                        data-aos="fade-up"
+                        data-aos-duration="2000"
+                      >
+                        <p>02 - Lorem, ipsum.</p>
+                        <h1>Lorem, ipsum.</h1>
+                      </div>
                     )}
                   </li>
 
@@ -424,10 +484,14 @@ function App() {
                   >
                     <img src={`img/rooms/img4.png`} alt="" />
                     {roomSlide === 3 && (
-                      <div className="slider-rooms__item-price" data-aos="fade-up" data-aos-duration="1000">
-                      <p>03 - Lorem</p>
-                      <h1>Lorem, ipsum.</h1>
-                    </div>
+                      <div
+                        className="slider-rooms__item-price"
+                        data-aos="fade-up"
+                        data-aos-duration="2000"
+                      >
+                        <p>03 - Lorem</p>
+                        <h1>Lorem, ipsum.</h1>
+                      </div>
                     )}
                   </li>
                 </ul>
@@ -457,9 +521,105 @@ function App() {
             </div>
           </div>
         </section>
+
+        <section className="tips">
+          <div className="container">
+            <div className="tips__inner">
+              <h1 className="tips__title">Tips & Tricks</h1>
+
+              <ul className="tips__list">
+                <div className="tips__control">
+                  <button onClick={() => toggleSliderTips("minus")}>
+                  &#8249;
+                  </button>
+                  <button onClick={() => toggleSliderTips("plus")}>&#8250;</button>
+                </div>
+                <li
+                  className="tips__item"
+                  style={{
+                    transform: `translate(${
+                      tipsSlide > 0
+                        ? 1680 - Number(`${tipsSlide * 424}`)
+                        : -tipsSlide
+                    }px)`,
+                  }}
+                >
+                  <img src="img/tips/tips1.png" alt="tips" />
+                  <div
+                    className={classNames("tips__item-info", {
+                      "tips__item-info-active": tipsSlide === 0,
+                    })}
+                  >
+                    <h1>How to create a living room to love</h1>
+                    <p>20 jan 2020</p>
+                  </div>
+                </li>
+
+                <li
+                  className="tips__item"
+                  style={{
+                    transform: `translate(${
+                      tipsSlide > 1
+                        ? 1680 - Number(`${tipsSlide * 424}`)
+                        : -Number(`${tipsSlide * 424}`)
+                    }px)`,
+                  }}
+                >
+                  <img src="img/tips/tips2.png" alt="tips" />
+                  <div
+                    className={classNames("tips__item-info", {
+                      "tips__item-info-active": tipsSlide === 1,
+                    })}
+                  >
+                    <h1>Solution for clean look working space</h1>
+                    <p>10 jan 2020</p>
+                  </div>
+                </li>
+
+                <li
+                  className="tips__item"
+                  style={{
+                    transform: `translate(${
+                      tipsSlide > 2
+                        ? 1680 - Number(`${tipsSlide * 424}`)
+                        : -Number(`${tipsSlide * 424}`)
+                    }px)`,
+                  }}
+                >
+                  <img src="img/tips/tips3.png" alt="tips" />
+                  <div
+                    className={classNames("tips__item-info", {
+                      "tips__item-info-active": tipsSlide === 2,
+                    })}
+                  >
+                    <h1>Make your cooking activity more fun with good setup</h1>
+                    <p>20 jan 2020</p>
+                  </div>
+                </li>
+
+                <li
+                  className="tips__item"
+                  style={{
+                    transform: `translate(-${tipsSlide * 424}px)`,
+                  }}
+                >
+                  <img src="img/tips/tips4.png" alt="tips" />
+                  <div
+                    className={classNames("tips__item-info", {
+                      "tips__item-info-active": tipsSlide === 3,
+                    })}
+                  >
+                    <h1>Solution for clean look working space</h1>
+                    <p>10 jan 2020</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
 }
 
-export default App
+export default App;
