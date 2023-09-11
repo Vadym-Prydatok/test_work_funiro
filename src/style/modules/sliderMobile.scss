@@ -1,0 +1,93 @@
+@use "../_utils/vars" as *;
+
+.slider {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0;
+
+  &__list {
+    overflow: hidden;
+    display: flex;
+    transition: all 1s ease-in-out;
+  }
+
+  &__item {
+    transition: all 1s ease-in-out;
+  }
+
+  &__dots-list {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__dots-item {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dots-item button {
+    width: 8px;
+    height: 8px;
+    background-color: #d8d8d8;
+    border-radius: 50%;
+  }
+
+  &__control {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__control button {
+    width: 36px;
+    height: 36px;
+    background-color: $orange;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: #f3c6ab;
+    }
+  }
+
+  &__control button:first-child img {
+    transform: rotate(180deg);
+  }
+  &__control button img {
+    height: 12px;
+    width: 12px;
+  }
+
+  &__box {
+    display: block;
+    position: absolute;
+    right: 10px;
+    bottom: 14px;
+    background-color: #ffffff59;
+    backdrop-filter: blur(31px);
+    padding: 8px;
+  }
+
+  &__box h1 {
+    font-family: "GilroySM", sans-serif;
+    font-size: 12px;
+  }
+  &__box p {
+    font-family: "GilroyM", sans-serif;
+    color: #616161;
+    font-size: 8px;
+  }
+  &__box h2 {
+    font-family: "GilroySM", sans-serif;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,116 @@
+@use "../_utils/vars" as *;
+@use "../_utils/_mixins.scss" as *;
+
+.footer {
+  &__inner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    column-gap: 20px;
+    row-gap: 24px;
+    border-top: 1px solid #d8d8d8;
+    padding: 40px 0 80px;
+  }
+
+  &__list:first-child li {
+    font-family: "GilroyR", sans-serif;
+  }
+
+  &__list:last-child {
+    width: 290px;
+  }
+
+  &__list {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 0;
+  }
+
+  &__item:first-child {
+    font-family: "GilroyB", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+  }
+
+  &__item {
+    font-family: "GilroyM", sans-serif;
+    color: #616161;
+    text-align: center;
+  }
+
+  &__item a {
+    &:hover {
+      color: $orange;
+    }
+  }
+
+  &__item form {
+    display: flex;
+  }
+
+  &__item input {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 12px;
+    height: 45px;
+    background-color: #e0e1e2;
+  }
+
+  &__item button {
+    display: inline-block;
+    padding: 10px 12px;
+    height: 45px;
+    width: 45px;
+    background-color: $orange;
+  }
+}
+
+@include onTablet {
+  .footer {
+    &__inner {
+      column-gap: 20px;
+      row-gap: 20px;
+      padding: 80px 0 50px;
+    }
+
+    &__list:first-child {
+      width: 250px;
+    }
+
+    &__list {
+      width: auto;
+    }
+
+    &__item {
+      font-family: "GilroyM", sans-serif;
+      color: #616161;
+      text-align: left;
+    }
+  }
+}
+
+@include onDekstop {
+  @include onTablet {
+    .footer {
+      &__inner {
+        justify-content: space-between;
+        column-gap: 80px;
+      }
+
+      &__list {
+        align-items: normal;
+      }
+
+      &__item {
+        font-family: "GilroyM", sans-serif;
+        color: #616161;
+        text-align: left;
+      }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+@use "../_utils/vars" as *;
+@use "../_utils/_mixins.scss" as *;
+
+.tips {
+  &__inner {
+    padding: 44px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__title {
+    font-family: "GilroyB", sans-serif;
+    font-size: 40px;
+    line-height: 120%;
+  }
+
+  &__list {
+    padding: 32px 0 24px 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 34px;
+    width: 400px;
+    overflow: hidden;
+  }
+
+  &__item {
+    min-width: 390px;
+    height: 370px;
+    padding: 0 10px;
+    transform: translate(0);
+    transition: all ease-in-out 0.7s;
+  }
+
+  &__item-info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__item-info-active {
+    background-color: #fff;
+    box-shadow: 0px 3px 16px 3px rgba(191, 188, 188, 0.44);
+    -webkit-box-shadow: 0px 3px 16px 3px rgba(191, 188, 188, 0.44);
+    -moz-box-shadow: 0px 3px 16px 3px rgba(191, 188, 188, 0.44);
+  }
+
+  &__item-info h1 {
+    font-family: "GilroySB", sans-serif;
+    font-size: 24px;
+    line-height: 120%;
+  }
+
+  &__item-info p {
+    font-family: "GilroyR", sans-serif;
+    font-size: 14px;
+    line-height: 150%;
+    color: #898989;
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+    width: 390px;
+    position: absolute;
+    z-index: 1;
+    bottom: 50%;
+  }
+
+  &__control button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    background-color: #fff;
+    color: $orange;
+    border-radius: 50%;
+    font-size: 28px;
+    font-weight: 600;
+
+    -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  &__dots-list {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__dots-item {
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dots-item button {
+    width: 11px;
+    height: 11px;
+    background-color: #d8d8d8;
+    border-radius: 50%;
+  }
+}
+
+@media (min-width: 850px) {
+  .tips {
+    &__list {
+      width: 814px;
+    }
+
+    &__control {
+      width: 812px;
+    }
+  }
+}
+
+@include onDekstop {
+  .tips {
+    &__list {
+      width: 1280px;
+      padding-left: 22px;
+    }
+
+    &__control {
+      left: 10px;
+      width: 1260px;
+      bottom: 48%;
+    }
+  }
+}
