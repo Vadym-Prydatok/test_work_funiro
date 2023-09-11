@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "../style/modules/slider.scss";
@@ -12,9 +12,10 @@ export default class SimpleSliderL extends Component {
       infinite: true,
       centerPadding: "290px",
       slidesToShow: 0.9,
-      speed: 500,
+      speed: 1000,
       autoplay: true,
       autoplaySpeed: 4000,
+      cssEase: 'linear',
     };
 
     return (

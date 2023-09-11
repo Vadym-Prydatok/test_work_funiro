@@ -1,7 +1,7 @@
 @use "../_utils/_mixins.scss" as *;
 
 .advantages {
-  padding: 24px 0;
+  padding: 44px 0;
 
   &__inner {
     display: flex;
@@ -12,7 +12,7 @@
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 64px;
   }
 
   &__item {

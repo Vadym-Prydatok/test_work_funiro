@@ -1,87 +1,35 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
 import classNames from "classnames";
-import SimpleSlider from "./components/Slider";
 import SimpleSliderL from "./components/SliderLarge";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-const products = [
-  {
-    id: "1",
-    link: "img/image1.png",
-    title: "Syltherine",
-    describe: "Stylish cafe chair",
-    price: "RP 2.500.000",
-    discount: "-30%",
-    priceWithDiscount: "RP 3.500.000",
-  },
-
-  {
-    id: "2",
-    link: "img/image2.png",
-    title: "Leviosa",
-    describe: "Stylish cafe chair",
-    price: "RP 2.500.000",
-  },
-
-  {
-    id: "3",
-    link: "img/image3.png",
-    title: "Lolito",
-    describe: "Luxury big sofa",
-    price: "Rp 7.000.000",
-    discount: "-50%",
-    priceWithDiscount: "Rp 14.000.000",
-  },
-  {
-    id: "4",
-    link: "img/image4.png",
-    title: "Respira",
-    describe: "Minimalist fan",
-    price: "RP 500.000",
-    discount: "New",
-  },
-  {
-    id: "5",
-    link: "img/image5.png",
-    title: "Grifo",
-    describe: "Night lamp",
-    price: "Rp 3.500.000",
-  },
-  {
-    id: "6",
-    link: "img/image6.png",
-    title: "Muggo",
-    describe: "Small mug",
-    price: "RP 150.000",
-    discount: "New",
-  },
-  {
-    id: "7",
-    link: "img/image7.png",
-    title: "Pingky",
-    describe: "Cute bed set",
-    price: "Rp 7.000.000",
-    discount: "-50%",
-    priceWithDiscount: "Rp 14.000.000",
-  },
-  {
-    id: "8",
-    link: "img/image8.png",
-    title: "Potty",
-    describe: "Minimalist flower pot",
-    price: "Rp 500.000",
-    discount: "New",
-  },
-];
+import { SliderDots } from "./components/SliderDots";
+import { SliderMobile } from "./components/SliderMobile";
+import { products } from "./components/helper/products";
+import { Product } from "./types/Product";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasOrder, sethasOrder] = useState(0);
+  const [hasOrder, setHasOrder] = useState(0);
   const [roomSlide, setRoomSlide] = useState(0);
   const [tipsSlide, setTipsSlide] = useState(0);
-  console.log(tipsSlide);
+  const [isCartList, setIsCartList] = useState(false);
+  const [cart, setCart] = useState<Product[]>([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = () => {
+    const position = window.scrollY;
+    setScrollPosition(position);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
 
   useEffect(() => {
     AOS.init();
@@ -140,16 +88,135 @@ function App() {
   };
 
   const handleMouseEnter = (id: number) => {
-    sethasOrder(id);
+    setHasOrder(id);
   };
 
   const handleMouseLeave = () => {
-    sethasOrder(0);
+    setHasOrder(0);
+  };
+
+  const addToCart = (id: number) => {
+    const currentProduct = products.find((p) => +p.id === id);
+    const hasCurrentProduct = cart.find((p) => +p.id === id);
+
+    if (hasCurrentProduct) {
+      return;
+    }
+
+    if (currentProduct) {
+      setCart((prev) => [...prev, currentProduct]);
+    }
+  };
+
+  const deleteProduct = (id: number) => {
+    setCart((prev) => prev.filter((p) => +p.id !== id));
   };
 
   return (
     <div className="App">
+      {scrollPosition > 99 && (
+        <div
+          className="header__nav header__nav-fixed"
+          data-aos="fade-down"
+          data-aos-duration="1000"
+        >
+          <nav className="nav">
+            <ul className="nav__list-menu">
+              <li className="nav__item-menu">
+                <a href="/">
+                  <img src="img/svg/Funiro.svg" alt="arrow" />
+                </a>
+              </li>
+
+              <li
+                className={classNames("menu-btn", { active: isOpen })}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </li>
+            </ul>
+
+            <ul className={classNames("nav__list", { active: isOpen })}>
+              <li className="nav__item">
+                <a href="/">
+                  <img src="img/svg/Funiro.svg" alt="arrow" />
+                </a>
+              </li>
+
+              <li className="nav__item">
+                <a href="#products">
+                  Products
+                  <img
+                    src="img/svg/Arrow-down.svg"
+                    alt="arrow"
+                    className="nav__img"
+                  />
+                </a>
+              </li>
+
+              <li className="nav__item">
+                <a href="#tips">
+                  Rooms
+                  <img
+                    src="img/svg/Arrow-down.svg"
+                    alt="arrow"
+                    className="nav__img"
+                  />
+                </a>
+              </li>
+
+              <li className="nav__item">
+                <a href="#inspirations">Inspirations</a>
+              </li>
+
+              <li className="nav__item">
+                <img src="img/svg/Ellipse.svg" alt="search" />
+                <input type="text" placeholder="Search for minimalist chair" />
+              </li>
+            </ul>
+          </nav>
+
+          <div className="nav-bar">
+            <ul className="nav-bar__list">
+              <li className="nav-bar__item">
+                <a href="/">
+                  <img src="img/svg/Heart.svg" alt="liked" />
+                </a>
+              </li>
+
+              <li className="nav-bar__item">
+                <button onClick={() => setIsCartList(!isCartList)}>
+                  <img src="img/svg/Cart.svg" alt="cart" />
+                  {cart.length > 0 && (
+                    <span className="nav-bar__item-cart">{cart.length}</span>
+                  )}
+                </button>
+              </li>
+
+              <li className="nav-bar__item">
+                <a href="/">
+                  <img src="img/Ellipse2.png" alt="cart" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
       <header className="header">
+        <ul
+          className={classNames("nav-bar__item-cart-list", {
+            "nav-bar__item-cart-list-active": isCartList,
+          })}
+        >
+          {cart.map((product) => (
+            <li key={product.id}>
+              {product.title}
+              <button onClick={() => deleteProduct(+product.id)}>X</button>
+            </li>
+          ))}
+        </ul>
         <div className="container">
           <div className="header__inner">
             <div
@@ -187,7 +254,7 @@ function App() {
                   </li>
 
                   <li className="nav__item">
-                    <a href="/">
+                    <a href="#products">
                       Products
                       <img
                         src="img/svg/Arrow-down.svg"
@@ -198,7 +265,7 @@ function App() {
                   </li>
 
                   <li className="nav__item">
-                    <a href="/">
+                    <a href="#tips">
                       Rooms
                       <img
                         src="img/svg/Arrow-down.svg"
@@ -209,7 +276,7 @@ function App() {
                   </li>
 
                   <li className="nav__item">
-                    <a href="/">Inspirations</a>
+                    <a href="#inspirations">Inspirations</a>
                   </li>
 
                   <li className="nav__item">
@@ -222,7 +289,11 @@ function App() {
                 </ul>
               </nav>
 
-              <div className="nav-bar">
+              <div
+                className="nav-bar"
+                data-aos="fade-down"
+                data-aos-duration="1200"
+              >
                 <ul className="nav-bar__list">
                   <li className="nav-bar__item">
                     <a href="/">
@@ -231,9 +302,14 @@ function App() {
                   </li>
 
                   <li className="nav-bar__item">
-                    <a href="/">
+                    <button onClick={() => setIsCartList(!isCartList)}>
                       <img src="img/svg/Cart.svg" alt="cart" />
-                    </a>
+                      {cart.length > 0 && (
+                        <span className="nav-bar__item-cart">
+                          {cart.length}
+                        </span>
+                      )}
+                    </button>
                   </li>
 
                   <li className="nav-bar__item">
@@ -245,7 +321,11 @@ function App() {
               </div>
             </div>
 
-            <div className="header__content">
+            <div
+              className="header__content"
+              data-aos="fade-down"
+              data-aos-duration="1000"
+            >
               <div className="header__info">
                 <h1>High-Quality Furniture Just For You</h1>
                 <p>
@@ -256,8 +336,8 @@ function App() {
               </div>
             </div>
 
-            <div className="header__container">
-              <SimpleSlider></SimpleSlider>
+            <div className="header__slider">
+              <SliderMobile></SliderMobile>
             </div>
 
             <div className="slider-large">
@@ -268,15 +348,15 @@ function App() {
       </header>
 
       <main>
-        <section
-          className="advantages"
-          data-aos="fade-left"
-          data-aos-duration="1000"
-        >
+        <section className="advantages">
           <div className="container">
             <div className="advantages__inner">
               <ul className="advantages__list">
-                <li className="advantages__item">
+                <li
+                  className="advantages__item"
+                  data-aos="fade-up"
+                  data-aos-duration="300"
+                >
                   <img src="img/svg/cup.svg" alt="cup" />
                   <div>
                     <h1>High Quality</h1>
@@ -284,7 +364,11 @@ function App() {
                   </div>
                 </li>
 
-                <li className="advantages__item">
+                <li
+                  className="advantages__item"
+                  data-aos="fade-up"
+                  data-aos-duration="600"
+                >
                   <img src="img/svg/ok.svg" alt="ok" />
                   <div>
                     <h1>Warrany Protection</h1>
@@ -292,7 +376,11 @@ function App() {
                   </div>
                 </li>
 
-                <li className="advantages__item">
+                <li
+                  className="advantages__item"
+                  data-aos="fade-up"
+                  data-aos-duration="900"
+                >
                   <img src="img/svg/gift.svg" alt="gift" />
                   <div>
                     <h1>Free Shipping</h1>
@@ -300,7 +388,11 @@ function App() {
                   </div>
                 </li>
 
-                <li className="advantages__item">
+                <li
+                  className="advantages__item"
+                  data-aos="fade-up"
+                  data-aos-duration="1200"
+                >
                   <img src="img/svg/sup.svg" alt="ok" />
                   <div>
                     <h1>24 / 7 Support</h1>
@@ -312,7 +404,7 @@ function App() {
           </div>
         </section>
 
-        <section className="products">
+        <section className="products" id="products">
           <div className="container">
             <div className="products__inner">
               <h1 className="products__head">Our Products</h1>
@@ -335,12 +427,17 @@ function App() {
                       onMouseEnter={() => handleMouseEnter(+id)}
                       onMouseLeave={handleMouseLeave}
                       className="products__item"
-                      data-aos="flip-left"
+                      data-aos="zoom-in"
                       data-aos-duration="1000"
                     >
                       {+id === hasOrder && (
                         <div className="products__hover">
-                          <button className="products__add">Add to cart</button>
+                          <button
+                            className="products__add"
+                            onClick={() => addToCart(+id)}
+                          >
+                            Add to cart
+                          </button>
                           <div>
                             <button className="products__share">
                               <img src="img/svg/share.svg" alt="share" />
@@ -384,7 +481,7 @@ function App() {
           </div>
         </section>
 
-        <section className="inspiration">
+        <section className="inspiration" id="inspirations">
           <div className="container">
             <div className="inspiration__inner">
               <div
@@ -502,27 +599,20 @@ function App() {
                   onClick={() => toggleSlider("plus")}
                   className="slider-rooms-control-btn"
                 >
-                  &gt;
+                  <img src="img/rightOrange.svg" alt="arrow" />
                 </button>
-
-                <ul className="slider-rooms__dots-list">
-                  {[0, 1, 2, 3].map((dot) => (
-                    <li
-                      key={dot}
-                      className={classNames("slider-rooms__dots-item", {
-                        isActiveDot: dot === roomSlide,
-                      })}
-                    >
-                      <button onClick={() => setRoomSlide(dot)}></button>
-                    </li>
-                  ))}
-                </ul>
+                <SliderDots
+                  classForList={"slider-rooms__dots-list"}
+                  classForItem={"slider-rooms__dots-item"}
+                  setSlide={setRoomSlide}
+                  slide={roomSlide}
+                ></SliderDots>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="tips">
+        <section className="tips" id="tips">
           <div className="container">
             <div className="tips__inner">
               <h1 className="tips__title">Tips & Tricks</h1>
@@ -530,16 +620,18 @@ function App() {
               <ul className="tips__list">
                 <div className="tips__control">
                   <button onClick={() => toggleSliderTips("minus")}>
-                  &#8249;
+                    &#8249;
                   </button>
-                  <button onClick={() => toggleSliderTips("plus")}>&#8250;</button>
+                  <button onClick={() => toggleSliderTips("plus")}>
+                    &#8250;
+                  </button>
                 </div>
                 <li
                   className="tips__item"
                   style={{
                     transform: `translate(${
                       tipsSlide > 0
-                        ? 1680 - Number(`${tipsSlide * 424}`)
+                        ? 1696 - Number(`${tipsSlide * 424}`)
                         : -tipsSlide
                     }px)`,
                   }}
@@ -560,7 +652,7 @@ function App() {
                   style={{
                     transform: `translate(${
                       tipsSlide > 1
-                        ? 1680 - Number(`${tipsSlide * 424}`)
+                        ? 1696 - Number(`${tipsSlide * 424}`)
                         : -Number(`${tipsSlide * 424}`)
                     }px)`,
                   }}
@@ -581,7 +673,7 @@ function App() {
                   style={{
                     transform: `translate(${
                       tipsSlide > 2
-                        ? 1680 - Number(`${tipsSlide * 424}`)
+                        ? 1696 - Number(`${tipsSlide * 424}`)
                         : -Number(`${tipsSlide * 424}`)
                     }px)`,
                   }}
@@ -614,10 +706,221 @@ function App() {
                   </div>
                 </li>
               </ul>
+
+              <SliderDots
+                classForList={"tips__dots-list"}
+                classForItem={"tips__dots-item"}
+                setSlide={setTipsSlide}
+                slide={tipsSlide}
+              ></SliderDots>
+            </div>
+          </div>
+        </section>
+
+        <section className="furniture">
+          <div className="container">
+            <div className="furniture__inner">
+              <h2>Share your setup with</h2>
+              <h1>#FuniroFurniture</h1>
+              <div className="gallery">
+                <img
+                  src="img/photo1.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="200"
+                />
+                <img
+                  src="img/photo2.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="400"
+                />
+                <img
+                  src="img/photo3.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="600"
+                />
+                <img
+                  src="img/photo4.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="800"
+                />
+                <img
+                  src="img/photo5.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="1000"
+                />
+                <img
+                  src="img/photo6.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="1200"
+                />
+                <img
+                  src="img/photo7.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="1400"
+                />
+                <img
+                  src="img/photo8.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="1600"
+                />
+                <img
+                  src="img/photo9.png"
+                  alt=""
+                  data-aos="zoom-in"
+                  data-aos-duration="1800"
+                />
+              </div>
             </div>
           </div>
         </section>
       </main>
+
+      <footer className="footer">
+        <div className="container">
+          <div className="footer__inner">
+            <ul
+              className="footer__list"
+              data-aos="zoom-in"
+              data-aos-duration="300"
+            >
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Funiro.
+                </a>
+              </li>
+              <li className="footer__item">
+                Worldwide furniture store since 2020. We sell over 1000+ branded
+                products on our website
+              </li>
+              <li className="footer__item">
+                <a href="https://goo.gl/maps/gxUXUHeqXTeFJc598" target="blank">
+                  Sawojajar Malang, Indonesia
+                </a>
+              </li>
+
+              <li className="footer__item">
+                <a href="tel: +62894563455" target="blank">
+                  +6289 456 3455
+                </a>
+              </li>
+
+              <li className="footer__item">
+                <a href="www.funiro.com" target="blank">
+                  www.funiro.com
+                </a>
+              </li>
+            </ul>
+
+            <ul
+              className="footer__list"
+              data-aos="zoom-in"
+              data-aos-duration="600"
+            >
+              <li className="footer__item">Menu</li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Products
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Rooms
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Inspirations
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  About Us
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Terms & Policy
+                </a>
+              </li>
+            </ul>
+
+            <ul
+              className="footer__list"
+              data-aos="zoom-in"
+              data-aos-duration="900"
+            >
+              <li className="footer__item">Account</li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  My Account
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Checkout
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  My Cart
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  My catalog
+                </a>
+              </li>
+            </ul>
+
+            <ul
+              className="footer__list"
+              data-aos="zoom-in"
+              data-aos-duration="1200"
+            >
+              <li className="footer__item">Stay Connected</li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Facebook
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Instagram
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="/" target="blank">
+                  Twitter
+                </a>
+              </li>
+            </ul>
+
+            <ul
+              className="footer__list"
+              data-aos="zoom-in"
+              data-aos-duration="1500"
+            >
+              <li className="footer__item">Stay Updated</li>
+              <li className="footer__item">
+                <form action="">
+                  <input type="text" placeholder="Enter your email" />
+                  <button type="submit">
+                    <img src="img/submit.svg" alt="" />
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

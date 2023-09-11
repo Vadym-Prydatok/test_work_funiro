@@ -23,7 +23,7 @@
     position: absolute;
     width: 294px;
     height: 148px;
-    right: 60px;
+    right: 120px;
     bottom: 40px;
     background-color: #ffffffa9;
     backdrop-filter: blur(10px);
@@ -63,3 +63,7 @@
     gap: 90px;
   }
 }
+
+.slick-track {
+  transition: fade 2000ms ease-out;  
+  }

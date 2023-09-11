@@ -46,7 +46,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
   }
 
   &__item {
@@ -90,8 +90,8 @@
     }
 
     &__item:first-child img {
-      width: 36px;
-      height: 36px;
+      width: 42px;
+      height: 42px;
     }
 
     &__item {
@@ -128,11 +128,24 @@
   }
 }
 
+@media (min-width: 1000px) {
+  .nav {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+
+    &__item:first-child img {
+      width: 50px;
+      height: 40px;
+    }
+  }
+}
+
 @include onDekstop {
   .nav {
     font-family: "GilroyM", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 18px;
     line-height: 150%;
   
     &__list {

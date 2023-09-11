@@ -6,14 +6,20 @@
     flex-direction: row;
     align-items: center;
     gap: 16px;
+    overflow: hidden;
   }
 
   &__item img {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
+  }
+
+  &__item button{
+    padding-bottom: 6px;
   }
 
   &__item {
+    position: relative;
     &:hover {
       & img {
         transform: rotateY(180deg);
@@ -28,6 +34,47 @@
       }
     }
   }
+
+  &__item-cart {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    bottom: 4px;
+    left: 0;
+    color: rgb(19, 138, 46);
+    background-color: rgb(236, 137, 80);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__item-cart-list {
+    position: fixed;
+    width: 160px;
+    height: auto;
+    color: azure;
+    background-color: rgba(238, 172, 118, 0.911);
+    z-index: 5;
+    top: 0;
+    right: 0;
+    transform: translate(0, -100%);
+    opacity: 0;
+    border-radius: 6px;
+  }
+
+  &__item-cart-list-active {
+    transform: translate(0, 59px);
+    opacity: 1;
+  }
+
+  &__item-cart-list li {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 @include onTablet {
@@ -37,13 +84,31 @@
     }
   
     &__item img {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
     }
 
     &__item:last-child img {
       width: 40px;
       height: 40px;
+    }
+  
+    &__item-cart-list-active {
+      transform: translate(0, 78px);
+    }
+  }
+}
+
+@include onDekstop {
+  .nav-bar {
+    &__item-cart-list {
+      font-size: 20px;
+      right: auto;
+      width: 300px;
+    }
+
+    &__item-cart-list-active {
+      transform: translate(0, 127px);
     }
   }
 }
