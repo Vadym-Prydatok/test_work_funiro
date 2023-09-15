@@ -15,7 +15,9 @@ function App() {
   const [roomSlide, setRoomSlide] = useState(0);
   const [tipsSlide, setTipsSlide] = useState(0);
   const [isCartList, setIsCartList] = useState(false);
+  const [isFavoriteList, setIsFavoriteList] = useState(false);
   const [cart, setCart] = useState<Product[]>([]);
+  const [favorite, setFavorite] = useState<Product[]>([]);
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const handleScroll = () => {
@@ -29,7 +31,6 @@ function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
 
   useEffect(() => {
     AOS.init();
@@ -108,9 +109,36 @@ function App() {
     }
   };
 
-  const deleteProduct = (id: number) => {
+  const deleteFromCart = (id: number) => {
     setCart((prev) => prev.filter((p) => +p.id !== id));
   };
+
+  const addToFavorite = (id: number) => {
+    const currentProduct = products.find((p) => +p.id === id);
+    const hasCurrentProduct = favorite.find((p) => +p.id === id);
+
+    if (hasCurrentProduct) {
+      return;
+    }
+
+    if (currentProduct) {
+      setFavorite((prev) => [...prev, currentProduct]);
+    }
+  };
+
+  const deleteFromFavorite = (id: number) => {
+    setFavorite((prev) => prev.filter((p) => +p.id !== id));
+  };
+
+  const openCartList = (isCartList: boolean) => {
+    setIsCartList(!isCartList);
+    setIsFavoriteList(false);
+  }
+
+  const openFavoriteList = (isFavoriteList: boolean) => {
+    setIsCartList(false);
+    setIsFavoriteList(!isFavoriteList);
+  }
 
   return (
     <div className="App">
@@ -123,7 +151,7 @@ function App() {
           <nav className="nav">
             <ul className="nav__list-menu">
               <li className="nav__item-menu">
-                <a href="/">
+                <a href="#header">
                   <img src="img/svg/Funiro.svg" alt="arrow" />
                 </a>
               </li>
@@ -140,7 +168,7 @@ function App() {
 
             <ul className={classNames("nav__list", { active: isOpen })}>
               <li className="nav__item">
-                <a href="/">
+                <a href="#header">
                   <img src="img/svg/Funiro.svg" alt="arrow" />
                 </a>
               </li>
@@ -181,13 +209,18 @@ function App() {
           <div className="nav-bar">
             <ul className="nav-bar__list">
               <li className="nav-bar__item">
-                <a href="/">
+                <button onClick={() => openFavoriteList(isFavoriteList)}>
                   <img src="img/svg/Heart.svg" alt="liked" />
-                </a>
+                  {favorite.length > 0 && (
+                    <span className="nav-bar__item-cart">
+                      {favorite.length}
+                    </span>
+                  )}
+                </button>
               </li>
 
               <li className="nav-bar__item">
-                <button onClick={() => setIsCartList(!isCartList)}>
+                <button onClick={() => openCartList(isCartList)}>
                   <img src="img/svg/Cart.svg" alt="cart" />
                   {cart.length > 0 && (
                     <span className="nav-bar__item-cart">{cart.length}</span>
@@ -196,7 +229,7 @@ function App() {
               </li>
 
               <li className="nav-bar__item">
-                <a href="/">
+                <a href="#header">
                   <img src="img/Ellipse2.png" alt="cart" />
                 </a>
               </li>
@@ -204,18 +237,31 @@ function App() {
           </div>
         </div>
       )}
-      <header className="header">
+      <header className="header" id="header">
         <ul
           className={classNames("nav-bar__item-cart-list", {
             "nav-bar__item-cart-list-active": isCartList,
           })}
         >
-          {cart.map((product) => (
-            <li key={product.id}>
-              {product.title}
-              <button onClick={() => deleteProduct(+product.id)}>X</button>
-            </li>
-          ))}
+          {isCartList && cart.map((product) => (
+                <li key={product.id}>
+                  {product.title}
+                  <button onClick={() => deleteFromCart(+product.id)}>X</button>
+                </li>
+              ))}
+        </ul>
+
+        <ul
+          className={classNames("nav-bar__item-cart-list", {
+            "nav-bar__item-cart-list-active": isFavoriteList,
+          })}
+        >
+          {isFavoriteList && favorite.map((product) => (
+                <li key={product.id}>
+                  {product.title}
+                  <button onClick={() => deleteFromFavorite(+product.id)}>X</button>
+                </li>
+              ))}
         </ul>
         <div className="container">
           <div className="header__inner">
@@ -231,7 +277,7 @@ function App() {
               >
                 <ul className="nav__list-menu">
                   <li className="nav__item-menu">
-                    <a href="/">
+                    <a href="#header">
                       <img src="img/svg/Funiro.svg" alt="arrow" />
                     </a>
                   </li>
@@ -248,7 +294,7 @@ function App() {
 
                 <ul className={classNames("nav__list", { active: isOpen })}>
                   <li className="nav__item">
-                    <a href="/">
+                    <a href="#header">
                       <img src="img/svg/Funiro.svg" alt="arrow" />
                     </a>
                   </li>
@@ -296,13 +342,18 @@ function App() {
               >
                 <ul className="nav-bar__list">
                   <li className="nav-bar__item">
-                    <a href="/">
+                    <button onClick={() => openFavoriteList(isFavoriteList)}>
                       <img src="img/svg/Heart.svg" alt="liked" />
-                    </a>
+                      {favorite.length > 0 && (
+                        <span className="nav-bar__item-cart">
+                          {favorite.length}
+                        </span>
+                      )}
+                    </button>
                   </li>
 
                   <li className="nav-bar__item">
-                    <button onClick={() => setIsCartList(!isCartList)}>
+                    <button onClick={() => openCartList(isCartList)}>
                       <img src="img/svg/Cart.svg" alt="cart" />
                       {cart.length > 0 && (
                         <span className="nav-bar__item-cart">
@@ -313,7 +364,7 @@ function App() {
                   </li>
 
                   <li className="nav-bar__item">
-                    <a href="/">
+                    <a href="#header">
                       <img src="img/Ellipse2.png" alt="cart" />
                     </a>
                   </li>
@@ -443,7 +494,7 @@ function App() {
                               <img src="img/svg/share.svg" alt="share" />
                               <p>Share</p>
                             </button>
-                            <button className="products__like">
+                            <button className="products__like" onClick={() => addToFavorite(+id)}>
                               <img src="img/svg/like.svg" alt="like" />
                               <p>Like</p>
                             </button>
@@ -792,7 +843,7 @@ function App() {
               data-aos-duration="300"
             >
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#header">
                   Funiro.
                 </a>
               </li>
@@ -826,27 +877,27 @@ function App() {
             >
               <li className="footer__item">Menu</li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#products">
                   Products
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#tips">
                   Rooms
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#inspirations">
                   Inspirations
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#header">
                   About Us
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#header">
                   Terms & Policy
                 </a>
               </li>
@@ -859,22 +910,22 @@ function App() {
             >
               <li className="footer__item">Account</li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#header">
                   My Account
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#header">
                   Checkout
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#header">
                   My Cart
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="#header">
                   My catalog
                 </a>
               </li>
@@ -887,17 +938,17 @@ function App() {
             >
               <li className="footer__item">Stay Connected</li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="https://www.facebook.com/" target="blank">
                   Facebook
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="https://www.instagram.com/" target="blank">
                   Instagram
                 </a>
               </li>
               <li className="footer__item">
-                <a href="/" target="blank">
+                <a href="https://twitter.com/" target="blank">
                   Twitter
                 </a>
               </li>
