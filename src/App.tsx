@@ -8,6 +8,7 @@ import { SliderDots } from "./components/SliderDots";
 import { SliderMobile } from "./components/SliderMobile";
 import { products } from "./components/helper/products";
 import { Product } from "./types/Product";
+import { useLocalStorage } from "./components/helper/useLocalStorage";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +17,8 @@ function App() {
   const [tipsSlide, setTipsSlide] = useState(0);
   const [isCartList, setIsCartList] = useState(false);
   const [isFavoriteList, setIsFavoriteList] = useState(false);
-  const [cart, setCart] = useState<Product[]>([]);
-  const [favorite, setFavorite] = useState<Product[]>([]);
+  const [cart, setCart] = useLocalStorage<Product[]>('cart', []);
+  const [favorite, setFavorite] = useLocalStorage<Product[]>('favorite', []);
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const handleScroll = () => {
@@ -105,12 +106,12 @@ function App() {
     }
 
     if (currentProduct) {
-      setCart((prev) => [...prev, currentProduct]);
+      setCart([...cart, currentProduct]);
     }
   };
 
   const deleteFromCart = (id: number) => {
-    setCart((prev) => prev.filter((p) => +p.id !== id));
+    setCart(cart.filter((p) => +p.id !== id));
   };
 
   const addToFavorite = (id: number) => {
@@ -122,12 +123,12 @@ function App() {
     }
 
     if (currentProduct) {
-      setFavorite((prev) => [...prev, currentProduct]);
+      setFavorite([...favorite, currentProduct]);
     }
   };
 
   const deleteFromFavorite = (id: number) => {
-    setFavorite((prev) => prev.filter((p) => +p.id !== id));
+    setFavorite(favorite.filter((p) => +p.id !== id));
   };
 
   const openCartList = (isCartList: boolean) => {
